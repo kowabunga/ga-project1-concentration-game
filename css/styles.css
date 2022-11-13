@@ -43,6 +43,12 @@ h1 {
     width: 100%;
 }
 
+.board,
+.card>div {
+    border: 1px solid #333;
+    border-radius: 3px;
+}
+
 .board {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -51,12 +57,28 @@ h1 {
     align-items: center;
     row-gap: 50px;
     padding: 25px;
+    margin: 25px;
 }
 
-.card {
+.card>div {
     width: 150px;
     height: 250px;
-    border: 1px solid #333;
-    border-radius: 3px;
     cursor: pointer;
+    transition: .5s ease;
+}
+
+.card:hover>div {
+    transform: rotateY(180deg) scale(-1, 1);
+}
+
+.card>div::before {
+    content: 'red'
+}
+
+.card:hover>div::after {
+    content: 'back side';
+}
+
+.card:hover>div::before {
+    content: ''
 }
