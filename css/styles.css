@@ -15,6 +15,10 @@
     --blue-purple-darker: #423bbc;
 }
 
+h1 {
+    text-align: center;
+}
+
 .flex {
     display: flex;
 }
@@ -35,95 +39,24 @@
     align-items: center;
 }
 
-h1 {
-    margin: 1rem 0;
-}
-
-html {
-    background-color: var(--light-gray);
-}
-
-body {
-    margin: 1.5rem;
-    border-radius: 5px;
-    box-shadow: inset 0 0 3px var(--light-gray);
-    background-color: var(--white);
-}
-
-button {
-    padding: 10px 15px;
-    background-color: var(--blue-purple);
-    color: var(--white);
-    font-size: 1rem;
-    border-radius: 5px;
-    border: none;
-    transition: .15s ease-in-out;
-    letter-spacing: 1.5px;
-    height: 3.5rem;
-    min-width: 150px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-button:hover {
-    cursor: pointer;
-    box-shadow: inset 0 0 7px var(--blue-purple-darker);
-}
-
-.header-container {
+.w-full {
     width: 100%;
 }
 
-.score-box {
-    margin-left: 5px;
+.board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    row-gap: 50px;
+    padding: 25px;
 }
 
-.high-score-box {
-    margin-right: 5px;
-}
-
-.score-box,
-.high-score-box {
-    padding: 1rem 1.5rem;
-    border: 1px solid var(--light-gray);
-    border-radius: 5px;
-    min-width: 150px;
-    text-align: center;
-    box-shadow: 0 0 2px var(--purple);
-}
-
-footer,
-.score-board {
-    padding: 5rem;
-}
-
-.new-game {
-    width: 50%;
-    padding: 20px 30px;
-    /* display: none; */
-}
-
-@media screen and (max-width:720px) {
-
-    h1 {
-        text-align: center;
-    }
-
-    .score-board {
-        flex-direction: column;
-        ;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .high-score-box,
-    .score-box,
-    header>button {
-        margin: 10px;
-    }
-
-    .new-game {
-        width: 100%;
-    }
+.card {
+    width: 150px;
+    height: 250px;
+    border: 1px solid #333;
+    border-radius: 3px;
+    cursor: pointer;
 }

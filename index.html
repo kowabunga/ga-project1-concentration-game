@@ -11,21 +11,20 @@
 </head>
 
 <body>
-    <header class="flex flex-center flex-j-center flex-column">
+    <header>
         <h1>Concentration - The Game of Chance</h1>
-        <div class="header-container flex flex-center flex-around">
-            <div class="score-board flex">
-                <div class="high-score-box">High Score:
+        <div>
+            <div class="flex flex-around w-full">
+                <div class="">High Score:
                     <span id="high-score">0</span>
                 </div>
                 <div class="score-box">Current Score:
                     <span id="score">0</span>
                 </div>
             </div>
-            <button>Reset Board</button>
         </div>
-        <div class="alert"></div>
     </header>
+    <div class="alert"></div>
     <main class="board">
         <div class="card"></div>
         <div class="card"></div>
@@ -48,6 +47,7 @@
         <button class="new-game">
             Play Again
         </button>
+        <button>Reset Board</button>
     </footer>
 </body>
 
