@@ -72,7 +72,7 @@ h1 {
 }
 
 .card>div::before {
-    content: 'red'
+    content: 'red';
 }
 
 .card:hover>div::after {
