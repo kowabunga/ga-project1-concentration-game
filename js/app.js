@@ -1,7 +1,7 @@
 const highScoreEl = document.querySelector('#high-score');
 const currentScoreEl = document.querySelector('#current-score');
 const alertEl = document.querySelector('#alert');
-const gameBoardEl = document.querySelector('#game-board');
+let gameBoardEl;
 
 // This element contains a list of Font Awesome icons class names
 // These will be used as the caterogy to match cards
@@ -24,11 +24,13 @@ const cards = [
   'fa-solid fa-book-skull',
 ];
 
-gameBoardEl.addEventListener('click', onBoardClick);
+let currentScore = 0;
+let highScore = 0;
 
 let cardBody = document.createDocumentFragment();
 let clickedCards = [];
 let newGame = true;
+
 function init() {
   newGame && shuffleCards();
   newGame = false;
@@ -37,7 +39,23 @@ function init() {
 }
 
 function render() {
+  // Check if game board has stuff in it and remove it
+  gameBoardEl = document.querySelector('#game-board');
+  gameBoardEl.removeEventListener('click', onBoardClick);
+  gameBoardEl.addEventListener('click', onBoardClick);
+  const gameBoardChildren = [...gameBoardEl.children];
+
+  console.log(gameBoardChildren);
+  while (gameBoardChildren.length > 0) {
+    console.log(gameBoardChildren.length);
+    gameBoardChildren.remove();
+  }
+
   buildGameBoard();
+  currentScoreEl.textContent = currentScore;
+  highScoreEl.textContent = highScore;
+
+  console.log(cards);
 }
 
 init();
@@ -60,15 +78,17 @@ function buildGameBoard() {
     backIcon = document.createElement('i');
 
     // add question mark icon to front of all cards
-    frontIcon.classList.add('fa-solid', 'fa-question');
-    cardFront.appendChild(frontIcon);
-    cardFront.classList.add(
-      'z-index-1',
-      'card-front',
-      'flex',
-      'flex-center',
-      'flex-j-center'
-    );
+    if (card !== 'fa-solid fa-check') {
+      frontIcon.classList.add('fa-solid', 'fa-question');
+      cardFront.appendChild(frontIcon);
+      cardFront.classList.add(
+        'z-index-1',
+        'card-front',
+        'flex',
+        'flex-center',
+        'flex-j-center'
+      );
+    }
 
     // add font awesome icon classes for back
     backIcon.classList.add(...card.split(' '));
@@ -84,7 +104,7 @@ function buildGameBoard() {
     cardBack.dataset.value = [...card.split(' ')][1];
 
     // append front and back to card div
-    cardDiv.appendChild(cardFront);
+    if (cardFront) cardDiv.appendChild(cardFront);
     cardDiv.appendChild(cardBack);
     cardDiv.classList.add('card');
 
@@ -142,8 +162,13 @@ function checkIfMatch() {
   console.log(card2.dataset.value);
 
   if (card1.dataset.value === card2.dataset.value) {
-    console.log(true);
+    cards[cards.indexOf(`fa-solid ${card1.dataset.value}`)] =
+      'fa-solid fa-check';
+    cards[cards.indexOf(`fa-solid ${card2.dataset.value}`)] =
+      'fa-solid fa-check';
+    currentScore += 100;
   } else {
-    console.log(false);
+    console.log(cards);
   }
+  render();
 }

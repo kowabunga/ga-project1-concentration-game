@@ -90,13 +90,13 @@ button:hover {
 }
 
 .flip-forward {
-    animation: flipCardLeft 2s;
+    animation: flipCardLeft .5s;
     opacity: 0;
     z-index: -5;
 }
 
 .flip-backward {
-    animation: flipCardRight 2s;
+    animation: flipCardRight .5s;
     opacity: 100%;
     z-index: 1;
 }
@@ -118,7 +118,7 @@ i {
     width: 150px;
     height: 250px;
     cursor: pointer;
-    transition: 2s ease;
+    transition: .5s ease;
 }
 
 /* .card:hover>div {
