@@ -62,7 +62,7 @@ function init() {
 function render() {
   // Check if game board has stuff in it and remove it
   gameBoardEl = document.querySelector('#game-board');
-  gameBoardEl.removeEventListener('click', onBoardClick);
+
   gameBoardEl.addEventListener('click', onBoardClick);
 
   //   while gameBoardEl has children, remove them
@@ -174,10 +174,11 @@ function onBoardClick(e) {
 }
 
 function checkIfMatch() {
-  // This is where it gets complicated (sort of)
-  // We have to "traverse the dom" via a bunch of parent Element and children Elements to find the correct element and get its data to compare
-  console.log(clickedCards);
+  //   Disable event listener.
+  //   Makes sure only two cards can be clicked at once
+  gameBoardEl.removeEventListener('click', onBoardClick);
 
+  //   Get both clicked elements out of array
   const card1 = [...clickedCards[0].children][1];
   const card2 = [...clickedCards[1].children][1];
 
@@ -186,16 +187,19 @@ function checkIfMatch() {
     if (card1.dataset.value === card2.dataset.value) {
       cards[cards.indexOf(`fa-solid ${card1.dataset.value}`)] =
         'fa-solid fa-check';
+
       cards[cards.indexOf(`fa-solid ${card2.dataset.value}`)] =
         'fa-solid fa-check';
+
       currentScore += 100;
       clickedCards = [];
+
       render();
     } else {
       clickedCards = [];
       setTimeout(() => {
         render();
-      }, 750);
+      }, 600);
     }
   }
 }

@@ -121,6 +121,10 @@ i {
     transition: .5s ease;
 }
 
+.no-cursor {
+    cursor: disabled;
+}
+
 /* .card:hover>div {
     transform: rotateY(180deg) scale(-1, 1);
 } */
