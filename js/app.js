@@ -24,6 +24,27 @@ const cards = [
   'fa-solid fa-book-skull',
 ];
 
+const resetCardList = [
+  [
+    'fa-solid fa-wand-magic-sparkles',
+    'fa-solid fa-wand-magic-sparkles',
+    'fa-solid fa-palette',
+    'fa-solid fa-palette',
+    'fa-solid fa-splotch',
+    'fa-solid fa-splotch',
+    'fa-solid fa-skull',
+    'fa-solid fa-skull',
+    'fa-solid fa-ghost',
+    'fa-solid fa-ghost',
+    'fa-solid fa-dragon',
+    'fa-solid fa-dragon',
+    'fa-solid fa-hat-wizard',
+    'fa-solid fa-hat-wizard',
+    'fa-solid fa-book-skull',
+    'fa-solid fa-book-skull',
+  ],
+];
+
 let currentScore = 0;
 let highScore = 0;
 
@@ -43,15 +64,14 @@ function render() {
   gameBoardEl = document.querySelector('#game-board');
   gameBoardEl.removeEventListener('click', onBoardClick);
   gameBoardEl.addEventListener('click', onBoardClick);
-  const gameBoardChildren = [...gameBoardEl.children];
 
-  console.log(gameBoardChildren);
-  while (gameBoardChildren.length > 0) {
-    console.log(gameBoardChildren.length);
-    gameBoardChildren.remove();
+  //   while gameBoardEl has children, remove them
+  while (gameBoardEl.hasChildNodes()) {
+    gameBoardEl.removeChild(gameBoardEl.firstChild);
   }
 
   buildGameBoard();
+
   currentScoreEl.textContent = currentScore;
   highScoreEl.textContent = highScore;
 
@@ -156,19 +176,26 @@ function onBoardClick(e) {
 function checkIfMatch() {
   // This is where it gets complicated (sort of)
   // We have to "traverse the dom" via a bunch of parent Element and children Elements to find the correct element and get its data to compare
+  console.log(clickedCards);
+
   const card1 = [...clickedCards[0].children][1];
   const card2 = [...clickedCards[1].children][1];
-  console.log(card1.dataset.value);
-  console.log(card2.dataset.value);
 
-  if (card1.dataset.value === card2.dataset.value) {
-    cards[cards.indexOf(`fa-solid ${card1.dataset.value}`)] =
-      'fa-solid fa-check';
-    cards[cards.indexOf(`fa-solid ${card2.dataset.value}`)] =
-      'fa-solid fa-check';
-    currentScore += 100;
-  } else {
-    console.log(cards);
+  //   Make sure the card that is clicked is NOT the same card
+  if (card1 !== card2) {
+    if (card1.dataset.value === card2.dataset.value) {
+      cards[cards.indexOf(`fa-solid ${card1.dataset.value}`)] =
+        'fa-solid fa-check';
+      cards[cards.indexOf(`fa-solid ${card2.dataset.value}`)] =
+        'fa-solid fa-check';
+      currentScore += 100;
+      clickedCards = [];
+      render();
+    } else {
+      clickedCards = [];
+      setTimeout(() => {
+        render();
+      }, 750);
+    }
   }
-  render();
 }
