@@ -178,6 +178,14 @@ function checkIfMatch() {
   //   Makes sure only two cards can be clicked at once
   gameBoardEl.removeEventListener('click', onBoardClick);
 
+  //   Check if alert has active classes (i.e. match/nomatch)
+  if (
+    alertEl.classList.contains('match') ||
+    alertEl.classList.contains('no-match')
+  ) {
+    alertEl.classList.remove('match', 'no-match');
+  }
+
   //   Get both clicked elements out of array
   const card1 = [...clickedCards[0].children][1];
   const card2 = [...clickedCards[1].children][1];
@@ -194,12 +202,26 @@ function checkIfMatch() {
       currentScore += 100;
       clickedCards = [];
 
+      manageAlert(true, `Correct! That's a match.`);
+
       render();
     } else {
       clickedCards = [];
+      manageAlert(false, `Woops. That's not right, try again.`);
       setTimeout(() => {
         render();
       }, 600);
     }
   }
+}
+
+function manageAlert(isMatch, message) {
+  isMatch ? alertEl.classList.add('match') : alertEl.classList.add('no-match');
+
+  alertEl.textContent = message;
+
+  //   remove alert after 1 second
+  setTimeout(() => {
+    alertEl.classList.remove('match', 'no-match');
+  }, 600);
 }
