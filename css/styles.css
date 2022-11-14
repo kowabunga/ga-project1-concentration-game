@@ -19,6 +19,20 @@ h1 {
     text-align: center;
 }
 
+button {
+    width: 10rem;
+    padding: 1rem 2rem;
+    text-align: center;
+    border: 1px solid #333;
+    border-radius: 3px;
+    margin: 5px;
+    background-color: transparent;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
 .flex {
     display: flex;
 }
@@ -75,12 +89,28 @@ h1 {
     background-color: #fff;
 }
 
-.z-1 {
+.flip-forward {
+    animation: flipCardLeft 2s;
+    opacity: 0;
+    z-index: -5;
+}
+
+.flip-backward {
+    animation: flipCardRight 2s;
+    opacity: 100%;
     z-index: 1;
 }
 
-.z--1 {
+.z-index-1 {
+    z-index: 1;
+}
+
+.z-index--1 {
     z-index: -1;
+}
+
+i {
+    font-size: 5rem;
 }
 
 
@@ -88,9 +118,54 @@ h1 {
     width: 150px;
     height: 250px;
     cursor: pointer;
-    transition: .5s ease;
+    transition: 2s ease;
 }
 
-.card:hover>div {
+/* .card:hover>div {
     transform: rotateY(180deg) scale(-1, 1);
+} */
+
+@keyframes flipCardLeft {
+    0% {
+        /* transform: rotateY(0deg); */
+        top: 0;
+        left: 0;
+        opacity: 100%;
+    }
+
+    50% {
+        top: 0;
+        left: -50px;
+        opacity: 30%;
+    }
+
+    100% {
+        /* transform: rotateY(90deg) scale(-1, 1); */
+        top: 0;
+        left: -50px;
+        opacity: 0;
+    }
+}
+
+@keyframes flipCardRight {
+    0% {
+        /* transform: rotateY(90deg) scale(-1, 1); */
+        top: 0;
+        left: -50px;
+        opacity: 0;
+    }
+
+
+    50% {
+        top: 0;
+        left: -50px;
+        opacity: 30%;
+    }
+
+    100% {
+        /* transform: rotateY(0deg); */
+        top: 0;
+        left: 0;
+        opacity: 100%;
+    }
 }

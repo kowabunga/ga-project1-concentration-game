@@ -24,6 +24,8 @@ const cards = [
   'fa-solid fa-book-skull',
 ];
 
+gameBoardEl.addEventListener('click', onBoardClick);
+
 let cardBody = document.createDocumentFragment();
 
 function init() {
@@ -59,7 +61,7 @@ function buildGameBoard() {
     frontIcon.classList.add('fa-solid', 'fa-question');
     cardFront.appendChild(frontIcon);
     cardFront.classList.add(
-      'z-1',
+      'z-index-1',
       'card-front',
       'flex',
       'flex-center',
@@ -67,11 +69,10 @@ function buildGameBoard() {
     );
 
     // add font awesome icon classes for back
-    let frontIcons = card.split(' ');
-    backIcon.classList.add(frontIcons[0], frontIcons[1]);
+    backIcon.classList.add(...card.split(' '));
     cardBack.appendChild(backIcon);
     cardBack.classList.add(
-      'z--1',
+      'z-index--1',
       'card-back',
       'flex',
       'flex-center',
@@ -105,4 +106,22 @@ function shuffleCards() {
       cards[randomIndex1],
     ];
   });
+}
+
+function onBoardClick(e) {
+  // check if target clicked is the icon element OR the div containing the icon element
+  // (i.e. has class name of 'card-front')
+  // Do a card flip
+  if (e.target.localName === 'i') {
+    e.target.parentElement.classList.add('flip-forward');
+    setTimeout(() => {
+      e.target.parentElement.classList.add('flip-backward');
+
+      e.target.parentElement.classList.remove('flip-forward');
+    }, 2500);
+  }
+
+  if (e.target.classList.contains('card-front')) {
+    e.target.classList.add('flip-forward');
+  }
 }
