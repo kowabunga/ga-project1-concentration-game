@@ -236,13 +236,13 @@ function checkIfGameWon() {
     return card === 'fa-solid fa-check';
   });
 
-  if (!allChecks) {
+  if (allChecks) {
     // Set new color for ALL elements on game board
     gameBoardEl.classList.add('won');
 
-    // Calculate "high score" - i.e. just based on max score * how long it took / some random number I thought of
+    // Calculate "weighted score", a result of the curren score divided by gametime * 100
 
-    weightedScore = Math.floor((currentScore * 0.99832) / gameTime / 1000);
+    weightedScore = Math.floor(currentScore / gameTime) * 100;
     weightedScoreEl.textContent = weightedScore;
     console.log(weightedScore);
     console.log(weightedScoreEl);
