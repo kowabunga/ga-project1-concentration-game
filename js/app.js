@@ -1,7 +1,8 @@
-const highScoreEl = document.querySelector('#high-score');
+const weightedScoreEl = document.querySelector('#weighted-score');
 const currentScoreEl = document.querySelector('#current-score');
 const alertEl = document.querySelector('#alert');
 let gameBoardEl;
+let gameTime = 0;
 
 // This element contains a list of Font Awesome icons class names
 // These will be used as the caterogy to match cards
@@ -46,7 +47,7 @@ const resetCardList = [
 ];
 
 let currentScore = 0;
-let highScore = 0;
+let weightedScore = 0;
 
 let cardBody = document.createDocumentFragment();
 let clickedCards = [];
@@ -55,6 +56,9 @@ let newGame = true;
 function init() {
   newGame && shuffleCards();
   newGame = false;
+
+  //   Count how long the game lasts until it's completion
+  setInterval(() => gameTime++, 1000);
 
   render();
 }
@@ -73,9 +77,7 @@ function render() {
   buildGameBoard();
 
   currentScoreEl.textContent = currentScore;
-  highScoreEl.textContent = highScore;
-
-  console.log(cards);
+  weightedScoreEl.textContent = weightedScore;
 }
 
 init();
@@ -204,10 +206,13 @@ function checkIfMatch() {
 
       manageAlert(true, `Correct! That's a match.`);
 
+      checkIfGameWon();
+
       render();
     } else {
       clickedCards = [];
       manageAlert(false, `Woops. That's not right, try again.`);
+
       setTimeout(() => {
         render();
       }, 600);
@@ -224,4 +229,22 @@ function manageAlert(isMatch, message) {
   setTimeout(() => {
     alertEl.classList.remove('match', 'no-match');
   }, 600);
+}
+
+function checkIfGameWon() {
+  let allChecks = cards.every(function (card) {
+    return card === 'fa-solid fa-check';
+  });
+
+  if (!allChecks) {
+    // Set new color for ALL elements on game board
+    gameBoardEl.classList.add('won');
+
+    // Calculate "high score" - i.e. just based on max score * how long it took / some random number I thought of
+
+    weightedScore = Math.floor((currentScore * 0.99832) / gameTime / 1000);
+    weightedScoreEl.textContent = weightedScore;
+    console.log(weightedScore);
+    console.log(weightedScoreEl);
+  }
 }
