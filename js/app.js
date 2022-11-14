@@ -27,9 +27,11 @@ const cards = [
 gameBoardEl.addEventListener('click', onBoardClick);
 
 let cardBody = document.createDocumentFragment();
-
+let clickedCards = [];
+let newGame = true;
 function init() {
-  shuffleCards();
+  newGame && shuffleCards();
+  newGame = false;
 
   render();
 }
@@ -70,6 +72,7 @@ function buildGameBoard() {
 
     // add font awesome icon classes for back
     backIcon.classList.add(...card.split(' '));
+    backIcon.dataset.value = [...card.split(' ')][1];
     cardBack.appendChild(backIcon);
     cardBack.classList.add(
       'z-index--1',
@@ -78,6 +81,7 @@ function buildGameBoard() {
       'flex-center',
       'flex-j-center'
     );
+    cardBack.dataset.value = [...card.split(' ')][1];
 
     // append front and back to card div
     cardDiv.appendChild(cardFront);
@@ -114,14 +118,32 @@ function onBoardClick(e) {
   // Do a card flip
   if (e.target.localName === 'i') {
     e.target.parentElement.classList.add('flip-forward');
-    setTimeout(() => {
-      e.target.parentElement.classList.add('flip-backward');
-
-      e.target.parentElement.classList.remove('flip-forward');
-    }, 2500);
+    // Add the main div with a 'card' class.
+    // This will make the matching logic easier later on
+    clickedCards.push(e.target.parentElement.parentElement);
+    clickedCards.length === 2 && checkIfMatch();
   }
 
   if (e.target.classList.contains('card-front')) {
     e.target.classList.add('flip-forward');
+    // Add the main div with a 'card' class.
+    // This will make the matching logic easier later on
+    clickedCards.push(e.target.parentElement);
+    clickedCards.length === 2 && checkIfMatch();
+  }
+}
+
+function checkIfMatch() {
+  // This is where it gets complicated (sort of)
+  // We have to "traverse the dom" via a bunch of parent Element and children Elements to find the correct element and get its data to compare
+  const card1 = [...clickedCards[0].children][1];
+  const card2 = [...clickedCards[1].children][1];
+  console.log(card1.dataset.value);
+  console.log(card2.dataset.value);
+
+  if (card1.dataset.value === card2.dataset.value) {
+    console.log(true);
+  } else {
+    console.log(false);
   }
 }
