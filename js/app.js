@@ -8,8 +8,8 @@ const gameBoardEl = document.querySelector('#game-board');
 const cards = [
   'fa-solid fa-wand-magic-sparkles',
   'fa-solid fa-wand-magic-sparkles',
-  'fa-solid fa-pallete',
-  'fa-solid fa-pallete',
+  'fa-solid fa-palette',
+  'fa-solid fa-palette',
   'fa-solid fa-splotch',
   'fa-solid fa-splotch',
   'fa-solid fa-skull',
@@ -24,30 +24,25 @@ const cards = [
   'fa-solid fa-book-skull',
 ];
 
-// ? see how this works out
 let cardBody = document.createDocumentFragment();
 
 function init() {
   shuffleCards();
-  console.log(cards);
 
   render();
 }
 
 function render() {
   buildGameBoard();
-  console.log(cardBody);
 }
 
 init();
 
 function buildGameBoard() {
-  // Shuffle deck of card values
-  shuffleCards();
-
   //   Create cards
   let cardDiv = null;
-  let innerCard = null;
+  let cardFront = null;
+  let cardBack = null;
   let icon = null;
 
   cardBody = document.createDocumentFragment();
@@ -55,19 +50,37 @@ function buildGameBoard() {
   cards.forEach(card => {
     // create individual card elements
     cardDiv = document.createElement('div');
-    innerCard = document.createElement('div');
-    icon = document.createElement('i');
+    cardFront = document.createElement('div');
+    cardBack = document.createElement('div');
+    frontIcon = document.createElement('i');
+    backIcon = document.createElement('i');
 
-    // add font awesome icon classes
-    icon.classList.add(card.split(' '));
+    // add question mark icon to front of all cards
+    frontIcon.classList.add('fa-solid', 'fa-question');
+    cardFront.appendChild(frontIcon);
+    cardFront.classList.add(
+      'z-1',
+      'card-front',
+      'flex',
+      'flex-center',
+      'flex-j-center'
+    );
 
-    // add other classes
-    // append icon to inner div
-    innerCard.appendChild(icon);
-    innerCard.classList.add('flex', 'flex-center', 'flex-j-center');
+    // add font awesome icon classes for back
+    let frontIcons = card.split(' ');
+    backIcon.classList.add(frontIcons[0], frontIcons[1]);
+    cardBack.appendChild(backIcon);
+    cardBack.classList.add(
+      'z--1',
+      'card-back',
+      'flex',
+      'flex-center',
+      'flex-j-center'
+    );
 
-    // append inner card to outer card div
-    cardDiv.appendChild(innerCard);
+    // append front and back to card div
+    cardDiv.appendChild(cardFront);
+    cardDiv.appendChild(cardBack);
     cardDiv.classList.add('card');
 
     // append card to card body document fragment

@@ -44,7 +44,7 @@ h1 {
 }
 
 .board,
-.card>div {
+.card div {
     border: 1px solid #333;
     border-radius: 3px;
 }
@@ -60,7 +60,31 @@ h1 {
     margin: 25px;
 }
 
-.card>div {
+.card {
+    position: relative;
+    width: 150px;
+    height: 250px;
+    z-index: 0;
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+}
+
+.z-1 {
+    z-index: 1;
+}
+
+.z--1 {
+    z-index: -1;
+}
+
+
+.card div {
     width: 150px;
     height: 250px;
     cursor: pointer;
@@ -69,16 +93,4 @@ h1 {
 
 .card:hover>div {
     transform: rotateY(180deg) scale(-1, 1);
-}
-
-.card>div::before {
-    content: 'red';
-}
-
-.card:hover>div::after {
-    content: 'back side';
-}
-
-.card:hover>div::before {
-    content: ''
 }
