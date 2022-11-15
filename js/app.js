@@ -57,7 +57,6 @@ let gameTime;
 let currentScore;
 let weightedScore;
 
-let cardBody;
 let clickedCards;
 let newGame = true;
 
@@ -101,10 +100,10 @@ function render() {
 
 function renderGameBoard() {
   //   Create cards
-  let cardDiv = null;
-  let cardFront = null;
-  let cardBack = null;
-  let icon = null;
+  let cardDiv;
+  let cardFront;
+  let cardBack;
+  let cardBody;
 
   cardBody = document.createDocumentFragment();
 
@@ -116,7 +115,7 @@ function renderGameBoard() {
     frontIcon = document.createElement('i');
     backIcon = document.createElement('i');
 
-    // add question mark icon to front of all cards
+    // add font awesome question mark icon to front of all cards
     if (card !== 'fa-solid fa-check') {
       frontIcon.classList.add('fa-solid', 'fa-question');
       cardFront.appendChild(frontIcon);
@@ -172,13 +171,13 @@ function shuffleCards() {
 }
 
 function onBoardClick(e) {
-  console.log('clicking');
+  // @TODO Make this work. Needs to break out if same 'card' is clicked twice
+
   // check if target clicked is the icon element OR the div containing the icon element
   // (i.e. has class name of 'card-front')
   // Do a card flip
-
-  // If element is the icon on the card front
   if (e.target.localName === 'i') {
+    // If element is the icon on the card front
     e.target.parentElement.classList.add('change-opacity');
     // Add the main div with a 'card' class.
     // This will make the matching logic easier later on
