@@ -45,12 +45,13 @@ const currentScoreEl = document.querySelector('#current-score');
 const alertEl = document.querySelector('#alert');
 const playAgainEl = document.querySelector('#new-game');
 const resetBoardEl = document.querySelector('#reset-board');
+const gameBoardEl = document.querySelector('#game-board');
 
 playAgainEl.addEventListener('click', restartGame);
 resetBoardEl.addEventListener('click', restartGame);
+gameBoardEl.addEventListener('click', onBoardClick);
 
 /*----- state variables -----*/
-let gameBoardEl;
 let gameTime;
 
 let currentScore;
@@ -82,10 +83,12 @@ function init() {
 
 /*----- functions -----*/
 function render() {
-  // Check if game board has stuff in it and remove it
-  gameBoardEl = document.querySelector('#game-board');
-
-  gameBoardEl.addEventListener('click', onBoardClick);
+  // Certain logic can disable the event listener on the game board
+  // to ensure smooth gameplay
+  // Check if game board has listener attribute. If not, add it.
+  if (!gameBoardEl.hasAttribute('listener')) {
+    gameBoardEl.addEventListener('click', onBoardClick);
+  }
 
   //   while gameBoardEl has children, remove them
   while (gameBoardEl.hasChildNodes()) {
@@ -171,13 +174,14 @@ function shuffleCards() {
 }
 
 function onBoardClick(e) {
+  console.log('clicking');
   // check if target clicked is the icon element OR the div containing the icon element
   // (i.e. has class name of 'card-front')
   // Do a card flip
 
   // If element is the icon on the card front
   if (e.target.localName === 'i') {
-    e.target.parentElement.classList.add('flip-forward');
+    e.target.parentElement.classList.add('change-opacity');
     // Add the main div with a 'card' class.
     // This will make the matching logic easier later on
     clickedCards.push(e.target.parentElement.parentElement);
@@ -186,7 +190,7 @@ function onBoardClick(e) {
 
   // If clicked element is the 'card front'
   if (e.target.classList.contains('card-front')) {
-    e.target.classList.add('flip-forward');
+    e.target.classList.add('change-opacity');
     // Add the main div with a 'card' class.
     // This will make the matching logic easier later on
     clickedCards.push(e.target.parentElement);
@@ -229,17 +233,25 @@ function checkIfMatch() {
 
       render();
     } else {
-      clickedCards = [];
+      // clickedCards = [];
 
       currentScore -= 10;
 
       manageAlert(false, `Woops. That's not right, try again.`);
 
       setTimeout(() => {
-        render();
+        unFlipCards();
+        clickedCards = [];
       }, 600);
     }
   }
+}
+
+function unFlipCards() {
+  clickedCards.forEach(card => {
+    card.childNodes[0].classList.remove('change-opacity');
+  });
+  gameBoardEl.addEventListener('click', onBoardClick);
 }
 
 function manageAlert(isMatch, message) {
@@ -272,7 +284,6 @@ function checkIfGameWon() {
   }
 }
 
-// @TODO make some cool animation?
 // This gets used for two functionalities.
 // Resetting the game board when player gives up
 // Starting a new game once current game is won
