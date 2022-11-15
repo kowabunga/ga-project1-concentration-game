@@ -72,6 +72,14 @@ i {
     box-shadow: 0 0 10px rgb(233, 233, 233);
 }
 
+.weighted-score-box {
+    margin-left: 10px;
+}
+
+.score-box {
+    margin-right: 10px;
+}
+
 .board,
 .card div {
     /* border: 1px solid #333; */
@@ -227,7 +235,7 @@ i {
     }
 
     i {
-        font-size: 20px;
+        font-size: 40px;
     }
 
     .card {
