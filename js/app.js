@@ -69,7 +69,6 @@ function init() {
   cardBody = document.createDocumentFragment();
 
   newGame && shuffleCards();
-  newGame = false;
 
   playAgainEl.classList.remove('db');
   resetBoardEl.classList.add('db');
@@ -79,6 +78,7 @@ function init() {
   setInterval(() => gameTime++, 1000);
 
   render();
+  newGame = false;
 }
 
 /*----- functions -----*/
@@ -96,9 +96,7 @@ function render() {
   }
 
   renderGameBoard();
-
-  currentScoreEl.textContent = currentScore;
-  weightedScoreEl.textContent = weightedScore;
+  renderScores(true);
 }
 
 function renderGameBoard() {
@@ -224,7 +222,6 @@ function checkIfMatch() {
       cards[cards.indexOf(`fa-solid ${card2.dataset.value}`)] =
         'fa-solid fa-check';
 
-      currentScore += 100;
       clickedCards = [];
 
       manageAlert(true, `Correct! That's a match.`);
@@ -233,11 +230,9 @@ function checkIfMatch() {
 
       render();
     } else {
-      // clickedCards = [];
-
-      currentScore -= 10;
-
       manageAlert(false, `Woops. That's not right, try again.`);
+
+      renderScores(false);
 
       setTimeout(() => {
         unFlipCards();
@@ -295,6 +290,24 @@ function restartGame() {
   gameBoardEl.classList.remove('won');
 
   init();
+}
+
+function renderScores(match) {
+  // If this is a new game, set scores to 0
+  if (newGame) {
+    currentScore = 0;
+    weightedScore = 0;
+  } else {
+    // If not a new game and there's a match, increase score. otherwise decrease score
+    if (match) {
+      currentScore += 100;
+    } else {
+      currentScore -= 10;
+    }
+  }
+
+  currentScoreEl.textContent = currentScore;
+  weightedScoreEl.textContent = weightedScore;
 }
 
 init();

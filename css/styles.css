@@ -9,6 +9,7 @@
 
 h1 {
     text-align: center;
+    margin: 20px 20px 30px 20px;
 }
 
 body {
@@ -32,6 +33,10 @@ button {
 button:hover {
     cursor: pointer;
     box-shadow: 0 0 10px rgb(233, 233, 233);
+}
+
+i {
+    font-size: 5rem;
 }
 
 .flex {
@@ -58,6 +63,15 @@ button:hover {
     width: 100%;
 }
 
+.weighted-score-box,
+.score-box {
+    border-radius: 5px;
+    padding: 10px 15px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 0 10px rgb(233, 233, 233);
+}
+
 .board,
 .card div {
     /* border: 1px solid #333; */
@@ -67,12 +81,12 @@ button:hover {
 .board {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(2, 1fr);
     justify-items: center;
     align-items: center;
-    row-gap: 50px;
+    margin: 0 auto;
+    max-width: 735px;
+    gap: 20px;
     padding: 25px;
-    margin: 25px;
 }
 
 .card {
@@ -120,10 +134,6 @@ button:hover {
     z-index: -1;
 }
 
-i {
-    font-size: 5rem;
-}
-
 .card div {
     width: 150px;
     height: 250px;
@@ -137,9 +147,8 @@ i {
 
 .alert {
     opacity: 0;
-    width: 500px;
-    height: 50px;
-    margin: 25px auto 0 auto;
+    width: 50%;
+    /* height: 50px; */
     border-radius: 5px;
     transition: .15s ease-in;
 }
@@ -178,5 +187,70 @@ i {
 
     100% {
         box-shadow: 0 0 5px rgba(53, 241, 65, .1);
+    }
+}
+
+@media screen and (max-width:720px) {
+    #score-box-area {
+        display: grid;
+        align-content: center;
+        justify-items: center;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "weighted"
+            "current"
+            "alert";
+    }
+
+    .weighted-score-box {
+        grid-area: weighted;
+    }
+
+    .score-box {
+        grid-area: current
+    }
+
+    .alert {
+        grid-area: alert;
+        width: 90%;
+        height: 50px;
+    }
+
+    .weighted-score-box,
+    .score-box {
+        margin: 10px 0;
+    }
+
+    .board {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+
+    i {
+        font-size: 20px;
+    }
+
+    .card {
+        width: 75px;
+        height: 100px;
+        position: relative;
+    }
+
+    .card div {
+        width: 75px;
+        height: 100px;
+    }
+}
+
+@media screen and (max-width:580px) {
+    .card {
+        width: 50px;
+        height: 75px;
+        position: relative;
+    }
+
+    .card div {
+        width: 50px;
+        height: 75px;
     }
 }
