@@ -185,52 +185,7 @@ i {
     }
 }
 
-/* @TODO See if this is necessary to keep. Will it be used? */
-@keyframes flipCardRight {
-    0% {
-        /* transform: rotateY(90deg) scale(-1, 1); */
-        top: 0;
-        left: -50px;
-        opacity: 0;
-    }
-
-
-    50% {
-        top: 0;
-        left: -50px;
-        opacity: 70%;
-    }
-
-    100% {
-        /* transform: rotateY(0deg); */
-        top: 0;
-        left: 0;
-        opacity: 100%;
-    }
-}
-
 @keyframes glowy {
-    /* 0% {
-        box-shadow: 0 0 1px rgb(53, 241, 65);
-    }
-
-    25% {
-        box-shadow: 0 0 5px rgb(53, 241, 65);
-    }
-
-    50% {
-        box-shadow: 0 0 10px rgb(53, 241, 65);
-    }
-
-    75% {
-        box-shadow: 0 0 5px rgb(53, 241, 65);
-
-    }
-
-    100% {
-        box-shadow: 0 0 1px rgb(53, 241, 65);
-    } */
-
     0% {
         box-shadow: 0 0 3px rgba(53, 241, 65, .1);
     }

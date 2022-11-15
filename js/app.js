@@ -92,13 +92,13 @@ function render() {
     gameBoardEl.removeChild(gameBoardEl.firstChild);
   }
 
-  buildGameBoard();
+  renderGameBoard();
 
   currentScoreEl.textContent = currentScore;
   weightedScoreEl.textContent = weightedScore;
 }
 
-function buildGameBoard() {
+function renderGameBoard() {
   //   Create cards
   let cardDiv = null;
   let cardFront = null;
@@ -162,7 +162,7 @@ function shuffleCards() {
     randomIndex1 = Math.floor(Math.random() * cards.length);
     randomIndex2 = Math.floor(Math.random() * cards.length);
 
-    // swap two card positions randomly
+    // swap two card positions based on random indexes
     [cards[randomIndex1], cards[randomIndex2]] = [
       cards[randomIndex2],
       cards[randomIndex1],
@@ -174,6 +174,8 @@ function onBoardClick(e) {
   // check if target clicked is the icon element OR the div containing the icon element
   // (i.e. has class name of 'card-front')
   // Do a card flip
+
+  // If element is the icon on the card front
   if (e.target.localName === 'i') {
     e.target.parentElement.classList.add('flip-forward');
     // Add the main div with a 'card' class.
@@ -182,6 +184,7 @@ function onBoardClick(e) {
     clickedCards.length === 2 && checkIfMatch();
   }
 
+  // If clicked element is the 'card front'
   if (e.target.classList.contains('card-front')) {
     e.target.classList.add('flip-forward');
     // Add the main div with a 'card' class.
