@@ -1,12 +1,7 @@
-const weightedScoreEl = document.querySelector('#weighted-score');
-const currentScoreEl = document.querySelector('#current-score');
-const alertEl = document.querySelector('#alert');
-let gameBoardEl;
-let gameTime = 0;
-
+/*----- constants -----*/
 // This element contains a list of Font Awesome icons class names
 // These will be used as the caterogy to match cards
-const cards = [
+let cards = [
   'fa-solid fa-wand-magic-sparkles',
   'fa-solid fa-wand-magic-sparkles',
   'fa-solid fa-palette',
@@ -26,43 +21,66 @@ const cards = [
 ];
 
 const resetCardList = [
-  [
-    'fa-solid fa-wand-magic-sparkles',
-    'fa-solid fa-wand-magic-sparkles',
-    'fa-solid fa-palette',
-    'fa-solid fa-palette',
-    'fa-solid fa-splotch',
-    'fa-solid fa-splotch',
-    'fa-solid fa-skull',
-    'fa-solid fa-skull',
-    'fa-solid fa-ghost',
-    'fa-solid fa-ghost',
-    'fa-solid fa-dragon',
-    'fa-solid fa-dragon',
-    'fa-solid fa-hat-wizard',
-    'fa-solid fa-hat-wizard',
-    'fa-solid fa-book-skull',
-    'fa-solid fa-book-skull',
-  ],
+  'fa-solid fa-wand-magic-sparkles',
+  'fa-solid fa-wand-magic-sparkles',
+  'fa-solid fa-palette',
+  'fa-solid fa-palette',
+  'fa-solid fa-splotch',
+  'fa-solid fa-splotch',
+  'fa-solid fa-skull',
+  'fa-solid fa-skull',
+  'fa-solid fa-ghost',
+  'fa-solid fa-ghost',
+  'fa-solid fa-dragon',
+  'fa-solid fa-dragon',
+  'fa-solid fa-hat-wizard',
+  'fa-solid fa-hat-wizard',
+  'fa-solid fa-book-skull',
+  'fa-solid fa-book-skull',
 ];
 
-let currentScore = 0;
-let weightedScore = 0;
+/*----- cached elements  -----*/
+const weightedScoreEl = document.querySelector('#weighted-score');
+const currentScoreEl = document.querySelector('#current-score');
+const alertEl = document.querySelector('#alert');
+const playAgainEl = document.querySelector('#new-game');
+const resetBoardEl = document.querySelector('#reset-board');
 
-let cardBody = document.createDocumentFragment();
-let clickedCards = [];
+playAgainEl.addEventListener('click', restartGame);
+resetBoardEl.addEventListener('click', restartGame);
+
+/*----- state variables -----*/
+let gameBoardEl;
+let gameTime;
+
+let currentScore;
+let weightedScore;
+
+let cardBody;
+let clickedCards;
 let newGame = true;
 
 function init() {
+  currentScore = 0;
+  weightedScore = 0;
+  clickedCards = [];
+
+  cardBody = document.createDocumentFragment();
+
   newGame && shuffleCards();
   newGame = false;
 
+  playAgainEl.classList.remove('db');
+  resetBoardEl.classList.add('db');
+
   //   Count how long the game lasts until it's completion
+  gameTime = 0;
   setInterval(() => gameTime++, 1000);
 
   render();
 }
 
+/*----- functions -----*/
 function render() {
   // Check if game board has stuff in it and remove it
   gameBoardEl = document.querySelector('#game-board');
@@ -79,8 +97,6 @@ function render() {
   currentScoreEl.textContent = currentScore;
   weightedScoreEl.textContent = weightedScore;
 }
-
-init();
 
 function buildGameBoard() {
   //   Create cards
@@ -211,6 +227,9 @@ function checkIfMatch() {
       render();
     } else {
       clickedCards = [];
+
+      currentScore -= 10;
+
       manageAlert(false, `Woops. That's not right, try again.`);
 
       setTimeout(() => {
@@ -244,7 +263,24 @@ function checkIfGameWon() {
 
     weightedScore = Math.floor(currentScore / gameTime) * 100;
     weightedScoreEl.textContent = weightedScore;
-    console.log(weightedScore);
-    console.log(weightedScoreEl);
+
+    playAgainEl.classList.add('db');
+    resetBoardEl.classList.remove('db');
   }
 }
+
+// @TODO make some cool animation?
+// This gets used for two functionalities.
+// Resetting the game board when player gives up
+// Starting a new game once current game is won
+function restartGame() {
+  newGame = true;
+  cards = [...resetCardList];
+
+  // remove any "won game" classes
+  gameBoardEl.classList.remove('won');
+
+  init();
+}
+
+init();
