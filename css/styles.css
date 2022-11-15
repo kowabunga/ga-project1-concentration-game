@@ -28,11 +28,13 @@ button {
     display: none;
     color: #fff;
     transition: .3s ease-in;
+    font-size: 16px;
 }
 
 button:hover {
     cursor: pointer;
-    box-shadow: 0 0 10px rgb(233, 233, 233);
+    background-color: #fff;
+    color: #333;
 }
 
 i {
@@ -102,6 +104,7 @@ i {
     width: 150px;
     height: 250px;
     z-index: 0;
+    cursor: pointer;
 }
 
 .card-front,
@@ -120,7 +123,7 @@ i {
     transition: opacity .5s ease;
 }
 
-.card-front:hover {
+.card:hover .card-front {
     transform: translate(-10px, -10px);
     box-shadow: inset 0 0 10px rgb(233, 233, 233), 5px 7px 10px rgb(190, 190, 190);
 }
@@ -147,10 +150,6 @@ i {
     height: 250px;
     cursor: pointer;
     transition: .5s ease;
-}
-
-.no-cursor {
-    cursor: disabled;
 }
 
 .alert {
@@ -240,25 +239,30 @@ i {
 
     .card {
         width: 75px;
-        height: 100px;
+        height: 121px;
         position: relative;
     }
 
     .card div {
         width: 75px;
-        height: 100px;
+        height: 121px;
     }
 }
 
 @media screen and (max-width:580px) {
     .card {
         width: 50px;
-        height: 75px;
+        height: 82px;
         position: relative;
     }
 
     .card div {
         width: 50px;
-        height: 75px;
+        height: 82px;
+    }
+
+    .card:hover .card-front {
+        transform: translate(-5px, -5px);
+        box-shadow: inset 0 0 10px rgb(233, 233, 233), 5px 7px 10px rgb(190, 190, 190);
     }
 }
