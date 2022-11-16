@@ -40,7 +40,7 @@ const resetCardList = [
 ];
 
 /*----- cached elements  -----*/
-const weightedScoreEl = document.querySelector('#weighted-score');
+const highScoreEl = document.querySelector('#high-score');
 const currentScoreEl = document.querySelector('#current-score');
 const alertEl = document.querySelector('#alert');
 const playAgainEl = document.querySelector('#new-game');
@@ -55,7 +55,7 @@ gameBoardEl.addEventListener('click', onBoardClick);
 let gameTime;
 
 let currentScore;
-let weightedScore;
+let highScore;
 
 let clickedCards;
 let newGame = true;
@@ -65,7 +65,7 @@ let alertTimeOut;
 /*----- functions -----*/
 function init() {
   currentScore = 0;
-  weightedScore = 0;
+  highScore = 710;
   clickedCards = [];
 
   cardBody = document.createDocumentFragment();
@@ -291,8 +291,9 @@ function checkIfGameWon() {
 
     // Calculate "weighted score", a result of the curren score divided by gametime * 100
 
-    weightedScore = Math.floor(currentScore / gameTime) * 100;
-    weightedScoreEl.textContent = weightedScore;
+    if (currentScore > highScore) {
+      highScoreEl.textContent = currentScore;
+    }
 
     playAgainEl.classList.add('db');
     resetBoardEl.classList.remove('db');
@@ -330,7 +331,7 @@ function renderScores(match) {
   }
 
   currentScoreEl.textContent = currentScore;
-  weightedScoreEl.textContent = weightedScore;
+  highScoreEl.textContent = highScore;
 }
 
 init();
