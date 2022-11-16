@@ -66,7 +66,7 @@ i {
     width: 100%;
 }
 
-.high-score-box,
+.moves-left-box,
 .score-box {
     border-radius: 5px;
     padding: 10px 15px;
@@ -75,7 +75,7 @@ i {
     box-shadow: 0 0 10px rgb(233, 233, 233);
 }
 
-.high-score-box {
+.moves-left-box {
     margin-left: 10px;
 }
 
@@ -174,17 +174,38 @@ i {
     opacity: 100;
 }
 
+#lost-alert,
+.game-end {
+    color: rgb(245, 40, 40);
+    font-size: 30rem;
+    margin: 0 auto;
+    animation: glowyLose 2s infinite;
+    grid-column: 1/5;
+}
+
+#lost-alert {
+    color: rgb(245, 40, 40);
+    font-size: 5rem;
+    width: 100%;
+    border: none;
+    text-align: center;
+}
+
 .won,
 .won>div div {
     color: rgb(53, 241, 65);
-    animation: glowy 2s infinite;
+    animation: glowyWin 2s infinite;
 }
 
 .db {
     display: block;
 }
 
-@keyframes glowy {
+.dn {
+    display: none;
+}
+
+@keyframes glowyWin {
     0% {
         box-shadow: 0 0 5px rgba(53, 241, 65, .1);
     }
@@ -195,6 +216,20 @@ i {
 
     100% {
         box-shadow: 0 0 5px rgba(53, 241, 65, .1);
+    }
+}
+
+@keyframes glowyLose {
+    0% {
+        text-shadow: 0 0 50px rgba(245, 40, 40, .1);
+    }
+
+    50% {
+        text-shadow: 0 0 50px rgba(245, 40, 40, 1);
+    }
+
+    100% {
+        text-shadow: 0 0 50px rgba(245, 40, 40, .1);
     }
 }
 
@@ -210,7 +245,7 @@ i {
             "alert";
     }
 
-    .high-score-box {
+    .moves-left-box {
         grid-area: high;
     }
 
@@ -224,7 +259,7 @@ i {
         height: 50px;
     }
 
-    .high-score-box,
+    .moves-left-box,
     .score-box {
         margin: 10px 0;
     }

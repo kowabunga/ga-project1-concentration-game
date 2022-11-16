@@ -40,7 +40,7 @@ const resetCardList = [
 ];
 
 /*----- cached elements  -----*/
-const highScoreEl = document.querySelector('#high-score');
+const movesLeftEl = document.querySelector('#moves-left');
 const currentScoreEl = document.querySelector('#current-score');
 const alertEl = document.querySelector('#alert');
 const playAgainEl = document.querySelector('#new-game');
@@ -54,7 +54,7 @@ gameBoardEl.addEventListener('click', onBoardClick);
 /*----- state variables -----*/
 
 let currentScore;
-let highScore;
+let movesLeft;
 
 let clickedCards;
 let newGame = true;
@@ -64,7 +64,7 @@ let alertTimeOut;
 /*----- functions -----*/
 function init() {
   currentScore = 0;
-  highScore = 710;
+  movesLeft = 3;
   clickedCards = [];
 
   cardBody = document.createDocumentFragment();
@@ -197,6 +197,9 @@ function onBoardClick(e) {
 }
 
 function checkIfMatch() {
+  movesLeft--;
+
+  if (movesLeft <= 0) return endGame();
   // Perform a check if the two cards are the SAME card before we do anything.
   if (clickedCards[0].dataset.idx !== clickedCards[1].dataset.idx) {
     //   Disable event listener.
@@ -289,8 +292,8 @@ function checkIfGameWon() {
       true
     );
 
-    if (currentScore > highScore) {
-      highScoreEl.textContent = currentScore;
+    if (currentScore > movesLeft) {
+      movesLeftEl.textContent = currentScore;
     }
 
     playAgainEl.classList.add('db');
@@ -329,7 +332,34 @@ function renderScores(match) {
   }
 
   currentScoreEl.textContent = currentScore;
-  highScoreEl.textContent = highScore;
+  movesLeftEl.textContent = movesLeft;
+}
+
+function endGame() {
+  // Need to call in order to update moves left counter
+  renderScores();
+
+  gameBoardEl.removeEventListener('click', onBoardClick);
+
+  // Disable click on EACH card now that you've lost
+  [...gameBoardEl.children].forEach(card => {
+    card.classList.add('dn');
+  });
+
+  const div = document.createElement('div');
+  div.textContent = 'Oh no. You lost. Try again!';
+  div.classList.add('alert');
+  div.classList.add('no-match');
+  div.classList.add('w-full');
+  div.id = 'lost-alert';
+
+  const i = document.createElement('i');
+  i.classList.add('fa-solid', 'fa-x', 'game-end');
+  console.log(i);
+  gameBoardEl.appendChild(div);
+  gameBoardEl.appendChild(i);
+
+  console.log(gameBoardEl.children);
 }
 
 init();
