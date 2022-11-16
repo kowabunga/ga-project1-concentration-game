@@ -52,7 +52,6 @@ resetBoardEl.addEventListener('click', restartGame);
 gameBoardEl.addEventListener('click', onBoardClick);
 
 /*----- state variables -----*/
-let gameTime;
 
 let currentScore;
 let highScore;
@@ -74,10 +73,6 @@ function init() {
 
   playAgainEl.classList.remove('db');
   resetBoardEl.classList.add('db');
-
-  //   Count how long the game lasts until it's completion
-  gameTime = 0;
-  setInterval(() => gameTime++, 1000);
 
   render();
   newGame = false;
@@ -258,7 +253,6 @@ function unFlipCards() {
 }
 
 function renderAlert(isMatch, message, alertTime, gameWon) {
-  console.log(isMatch, message, alertTime);
   if (isMatch) {
     if (gameWon) {
       alertEl.classList.add('game-won');
@@ -287,9 +281,13 @@ function checkIfGameWon() {
     gameBoardEl.classList.add('won');
 
     // Add won alert msg
-    renderAlert(true, 'Congratulations, you won!', 50000000000, true);
-
-    // Calculate "weighted score", a result of the curren score divided by gametime * 100
+    //Add max safe int just want to keep that alert up for a while since alerts auto remove themselves
+    renderAlert(
+      true,
+      'Congratulations, you won!',
+      Number.MAX_SAFE_INTEGER,
+      true
+    );
 
     if (currentScore > highScore) {
       highScoreEl.textContent = currentScore;
