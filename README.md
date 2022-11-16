@@ -1,6 +1,6 @@
 # Concentration - The Game of Chance
 
-Do you remember? What was under that card. Was it the hat... no wait the dragon. Aw man that wasn't right.
+Do you remember? What was under that card. Was it the hat... no wait the dragon. Aw man that wasn't right - and my score went down!
 
 ## Technologies Used
 
@@ -18,9 +18,7 @@ Do you remember? What was under that card. Was it the hat... no wait the dragon.
   - Animations
   - Media Queries
 
-- MVC (Model View Component)
-
-## How to Start the Game
+## Getting Started
 
 There are two methods to start the game as described below.
 
@@ -30,11 +28,11 @@ Instructions on how to play the game will follow.
 
 If you choose to play the game offline, you will have to download a copy of the files available on this Github Repository.
 
-If you already have a GitHub account, you can download the code via clicking the green **Code** button and selecting, under Clone, HTTPS, SSH, or GitHub CLI as per your preference.
+If you already have a GitHub account, you can download the code via clicking the green <span style="color:rgb(80,135,70)">**Code**</span> button and selecting, under Clone, HTTPS, SSH, or GitHub CLI as per your preference.
 
-If you do not have a GitHub account, you can seelct the Download Zip button also under the green **Code** button.
+If you do not have a GitHub account, you can seelct the Download Zip button also under the green <span style="color:rgb(80,135,70)">**Code**</span> button.
 
-Once the game is downloaded, unzip the file and open up the file named **index.html** or **index** (these are the same files - your computer may hide the .html extension). You may have to select what application to open the file in. Select your browser of choice and the game should open in your browser.
+Once the game is downloaded, unzip the file and open up the file named <span style="color:#af4ef9">**index.html**</span> or <span style="color:#af4ef9">**index**</span> (these are the same files - your computer may hide the .html extension). You may have to select what application to open the file in. Select your browser of choice and the game should open in your browser.
 
 ### Online
 
@@ -63,3 +61,21 @@ If you made a correct choice, the alert will say so and the cards that were corr
 
 ### You Won
 
+Congrats, you did it! Now that you've won you can bask in the glory of knowing your memory hasn't failed you, you still have it, or you can play again. To play again, simply hit the "Play Again" button to keep going. The board randomly reshuffles itself each time you play again so you don't have to worry about remembering _too hard_ where the shapes are on the board.
+
+![You did it, you won!](/assets/images/won_game.png)
+
+### Wait, I'm lost. Help.
+
+If you find the current board too hard or you just can't remember where stuff is, you can hit the **Reset Board** button to have the game reset and the board reshuffled.
+
+![Reset button](/assets/images/reset_button.png)
+
+## Next Steps
+
+- Three Dimensional (3-D) cards
+  - Currently cards just act as if they are two cards "stacked" on top of each other. Future changes would result in the card "flipping over" and revealing the shape on the back of the card.
+  - Other option include something akin to a 3-D cube that rotates around to show the other sides
+- What's the picture?
+  - Looking back at the 3-D cube idea, two sides would act as the front/back of the card but the third side would be part of an image.
+  - This would allow a person to make "guesses" at what the whole picture is if the game was to be completed. Guessing correctly before the game is completed would result in bonus points.
