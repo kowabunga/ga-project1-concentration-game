@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Quicksand', sans-serif;
+    letter-spacing: 1px;
 }
 
 h1 {
@@ -18,7 +19,7 @@ body {
 }
 
 button {
-    width: 10rem;
+    width: 11rem;
     padding: 1rem 2rem;
     text-align: center;
     border: 1px solid #fff;
@@ -160,6 +161,7 @@ i {
     transition: .15s ease-in;
 }
 
+.game-won,
 .match {
     border: 2px solid rgb(53, 241, 65);
     color: rgb(53, 241, 65);

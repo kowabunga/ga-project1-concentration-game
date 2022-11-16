@@ -62,6 +62,7 @@ let newGame = true;
 
 let alertTimeOut;
 
+/*----- functions -----*/
 function init() {
   currentScore = 0;
   weightedScore = 0;
@@ -82,7 +83,6 @@ function init() {
   newGame = false;
 }
 
-/*----- functions -----*/
 function render() {
   // Certain logic can disable the event listener on the game board
   // to ensure smooth gameplay
@@ -229,13 +229,13 @@ function checkIfMatch() {
 
       clickedCards = [];
 
-      manageAlert(true, `Correct! That's a match.`, 600);
+      renderAlert(true, `Correct! That's a match.`, 600);
 
       checkIfGameWon();
 
       render();
     } else {
-      manageAlert(false, `Woops. That's not right, try again.`, 600);
+      renderAlert(false, `Woops. That's not right, try again.`, 600);
 
       renderScores(false);
 
@@ -257,8 +257,17 @@ function unFlipCards() {
   gameBoardEl.addEventListener('click', onBoardClick);
 }
 
-function manageAlert(isMatch, message, alertTime) {
-  isMatch ? alertEl.classList.add('match') : alertEl.classList.add('no-match');
+function renderAlert(isMatch, message, alertTime, gameWon) {
+  console.log(isMatch, message, alertTime);
+  if (isMatch) {
+    if (gameWon) {
+      alertEl.classList.add('game-won');
+    } else {
+      alertEl.classList.add('match');
+    }
+  } else {
+    alertEl.classList.add('no-match');
+  }
 
   alertEl.textContent = message;
 
@@ -278,7 +287,7 @@ function checkIfGameWon() {
     gameBoardEl.classList.add('won');
 
     // Add won alert msg
-    manageAlert(true, 'Congradulations, you won!', 50000000000);
+    renderAlert(true, 'Congratulations, you won!', 50000000000, true);
 
     // Calculate "weighted score", a result of the curren score divided by gametime * 100
 
@@ -299,6 +308,7 @@ function restartGame() {
 
   // remove any "won game" classes
   gameBoardEl.classList.remove('won');
+  alertEl.classList.remove('game-won');
 
   clearTimeout(alertTimeOut);
 
