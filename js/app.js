@@ -60,6 +60,8 @@ let weightedScore;
 let clickedCards;
 let newGame = true;
 
+let alertTimeOut;
+
 function init() {
   currentScore = 0;
   weightedScore = 0;
@@ -107,13 +109,17 @@ function renderGameBoard() {
 
   cardBody = document.createDocumentFragment();
 
-  cards.forEach(card => {
+  cards.forEach((card, idx) => {
     // create individual card elements
     cardDiv = document.createElement('div');
     cardFront = document.createElement('div');
     cardBack = document.createElement('div');
     frontIcon = document.createElement('i');
     backIcon = document.createElement('i');
+
+    // Add index to card element
+    // Used to ensure same card is not clicked twice
+    cardDiv.dataset.idx = idx;
 
     // add font awesome question mark icon to front of all cards
     if (card !== 'fa-solid fa-check') {
@@ -155,8 +161,8 @@ function renderGameBoard() {
 }
 
 function shuffleCards() {
-  let randomIndex1 = null;
-  let randomIndex2 = null;
+  let randomIndex1;
+  let randomIndex2;
   cards.forEach(card => {
     // generate two random positions
     randomIndex1 = Math.floor(Math.random() * cards.length);
@@ -171,7 +177,7 @@ function shuffleCards() {
 }
 
 function onBoardClick(e) {
-  // @TODO Make this work. Needs to break out if same 'card' is clicked twice
+  // if(clickedCards[0].getAttribute('card-id'))
 
   // check if target clicked is the icon element OR the div containing the icon element
   // (i.e. has class name of 'card-front')
@@ -196,24 +202,24 @@ function onBoardClick(e) {
 }
 
 function checkIfMatch() {
-  //   Disable event listener.
-  //   Makes sure only two cards can be clicked at once
-  gameBoardEl.removeEventListener('click', onBoardClick);
+  // Perform a check if the two cards are the SAME card before we do anything.
+  if (clickedCards[0].dataset.idx !== clickedCards[1].dataset.idx) {
+    //   Disable event listener.
+    //   Makes sure only two cards can be clicked at once
+    gameBoardEl.removeEventListener('click', onBoardClick);
 
-  //   Check if alert has active classes (i.e. match/nomatch)
-  if (
-    alertEl.classList.contains('match') ||
-    alertEl.classList.contains('no-match')
-  ) {
-    alertEl.classList.remove('match', 'no-match');
-  }
+    //   Check if alert has active classes (i.e. match/nomatch)
+    if (
+      alertEl.classList.contains('match') ||
+      alertEl.classList.contains('no-match')
+    ) {
+      alertEl.classList.remove('match', 'no-match');
+    }
 
-  //   Get both clicked elements out of array
-  const card1 = [...clickedCards[0].children][1];
-  const card2 = [...clickedCards[1].children][1];
+    //   Get both clicked elements out of array
+    const card1 = [...clickedCards[0].children][1];
+    const card2 = [...clickedCards[1].children][1];
 
-  //   Make sure the card that is clicked is NOT the same card
-  if (card1 !== card2) {
     if (card1.dataset.value === card2.dataset.value) {
       cards[cards.indexOf(`fa-solid ${card1.dataset.value}`)] =
         'fa-solid fa-check';
@@ -223,13 +229,13 @@ function checkIfMatch() {
 
       clickedCards = [];
 
-      manageAlert(true, `Correct! That's a match.`);
+      manageAlert(true, `Correct! That's a match.`, 600);
 
       checkIfGameWon();
 
       render();
     } else {
-      manageAlert(false, `Woops. That's not right, try again.`);
+      manageAlert(false, `Woops. That's not right, try again.`, 600);
 
       renderScores(false);
 
@@ -238,6 +244,9 @@ function checkIfMatch() {
         clickedCards = [];
       }, 600);
     }
+  } else {
+    // Remove 2nd clicked card, i.e. same card clicked twice
+    clickedCards.pop();
   }
 }
 
@@ -248,15 +257,15 @@ function unFlipCards() {
   gameBoardEl.addEventListener('click', onBoardClick);
 }
 
-function manageAlert(isMatch, message) {
+function manageAlert(isMatch, message, alertTime) {
   isMatch ? alertEl.classList.add('match') : alertEl.classList.add('no-match');
 
   alertEl.textContent = message;
 
   //   remove alert after 1 second
-  setTimeout(() => {
+  alertTimeout = setTimeout(() => {
     alertEl.classList.remove('match', 'no-match');
-  }, 600);
+  }, alertTime);
 }
 
 function checkIfGameWon() {
@@ -267,6 +276,9 @@ function checkIfGameWon() {
   if (allChecks) {
     // Set new color for ALL elements on game board
     gameBoardEl.classList.add('won');
+
+    // Add won alert msg
+    manageAlert(true, 'Congradulations, you won!', 50000000000);
 
     // Calculate "weighted score", a result of the curren score divided by gametime * 100
 
@@ -287,6 +299,8 @@ function restartGame() {
 
   // remove any "won game" classes
   gameBoardEl.classList.remove('won');
+
+  clearTimeout(alertTimeOut);
 
   init();
 }

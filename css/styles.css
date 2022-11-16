@@ -93,10 +93,10 @@ i {
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
     align-items: center;
-    margin: 0 auto;
     max-width: 735px;
     gap: 20px;
-    padding: 25px;
+    margin: 20px auto;
+    padding: 15px;
 }
 
 .card {
@@ -175,7 +175,6 @@ i {
 .won,
 .won>div div {
     color: rgb(53, 241, 65);
-    border: 1px solid rgb(53, 241, 65);
     animation: glowy 2s infinite;
 }
 
@@ -231,6 +230,7 @@ i {
     .board {
         grid-template-columns: repeat(4, 1fr);
         gap: 15px;
+        margin: 20px 15px;
     }
 
     i {
