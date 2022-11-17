@@ -22,7 +22,7 @@ Once the game is downloaded, unzip the file and open up the file named <span sty
 
 The game is also available online at the link below. You can play the game just as you would above.
 
-> [The Concentration Game. Do You Remember/](https://kowabunga.github.io/ga-project1-concentration-game/)
+> [The Concentration Game. Do You Remember?](https://kowabunga.github.io/ga-project1-concentration-game/)
 
 ## How to Play
 
