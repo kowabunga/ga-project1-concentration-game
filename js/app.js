@@ -200,6 +200,7 @@ function checkIfMatch() {
   movesLeft--;
 
   if (movesLeft <= 0) return endGame();
+
   // Perform a check if the two cards are the SAME card before we do anything.
   if (clickedCards[0].dataset.idx !== clickedCards[1].dataset.idx) {
     //   Disable event listener.
@@ -218,6 +219,7 @@ function checkIfMatch() {
     const card1 = [...clickedCards[0].children][1];
     const card2 = [...clickedCards[1].children][1];
 
+    // Check if data-value is the same, i.e. both cards have the same icon
     if (card1.dataset.value === card2.dataset.value) {
       cards[cards.indexOf(`fa-solid ${card1.dataset.value}`)] =
         'fa-solid fa-check';
