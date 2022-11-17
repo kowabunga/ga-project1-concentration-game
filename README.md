@@ -14,7 +14,7 @@ If you choose to play the game offline, you will have to download a copy of the 
 
 If you already have a GitHub account, you can download the code via clicking the green <span style="color:rgb(80,135,70)">**Code**</span> button and selecting, under Clone, HTTPS, SSH, or GitHub CLI as per your preference.
 
-If you do not have a GitHub account, you can seelct the Download Zip button also under the green <span style="color:rgb(80,135,70)">**Code**</span> button.
+If you do not have a GitHub account, you can select the Download Zip button also under the green <span style="color:rgb(80,135,70)">**Code**</span> button.
 
 Once the game is downloaded, unzip the file and open up the file named <span style="color:#af4ef9">**index.html**</span> or <span style="color:#af4ef9">**index**</span> (these are the same files - your computer may hide the .html extension). You may have to select what application to open the file in. Select your browser of choice and the game should open in your browser.
 
