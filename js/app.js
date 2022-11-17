@@ -355,11 +355,8 @@ function endGame() {
 
   const i = document.createElement('i');
   i.classList.add('fa-solid', 'fa-x', 'game-end');
-  console.log(i);
   gameBoardEl.appendChild(div);
   gameBoardEl.appendChild(i);
-
-  console.log(gameBoardEl.children);
 }
 
 init();
