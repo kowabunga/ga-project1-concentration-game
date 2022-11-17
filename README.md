@@ -2,22 +2,6 @@
 
 Do you remember? What was under that card. Was it the hat... no wait the dragon. Aw man that wasn't right - and my score went down!
 
-## Technologies Used
-
-- HTML
-
-- JavaScript
-
-  - Functions
-  - Event Listeners
-  - DOM Manipulation
-
-- CSS
-
-  - Styling
-  - Animations
-  - Media Queries
-
 ## Getting Started
 
 There are two methods to start the game as described below.
@@ -73,9 +57,27 @@ If you find the current board too hard or you just can't remember where stuff is
 
 ## Next Steps
 
-- Three Dimensional (3-D) cards
+- **Three Dimensional (3-D) cards**
   - Currently cards just act as if they are two cards "stacked" on top of each other. Future changes would result in the card "flipping over" and revealing the shape on the back of the card.
   - Other option include something akin to a 3-D cube that rotates around to show the other sides
-- What's the picture?
+- **What's the picture?**
   - Looking back at the 3-D cube idea, two sides would act as the front/back of the card but the third side would be part of an image.
   - This would allow a person to make "guesses" at what the whole picture is if the game was to be completed. Guessing correctly before the game is completed would result in bonus points.
+- **Multi-player**
+  - Could set up multi-player using websockets, opening up "two" games side by side and two players can complete on who finishes the game faster
+
+## Technologies Used
+
+- HTML
+
+- JavaScript
+
+  - Functions
+  - Event Listeners
+  - DOM Manipulation
+
+- CSS
+
+  - Styling
+  - Animations
+  - Media Queries

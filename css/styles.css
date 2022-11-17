@@ -46,10 +46,6 @@ i {
     display: flex;
 }
 
-.flex-column {
-    flex-direction: column;
-}
-
 .flex-around {
     justify-content: space-around;
 }
@@ -85,7 +81,6 @@ i {
 
 .board,
 .card div {
-    /* border: 1px solid #333; */
     border-radius: 5px;
 }
 
@@ -284,8 +279,6 @@ i {
         width: 75px;
         height: 121px;
     }
-
-    /* @TODO FIX THIS FOR SMALL SIZES*/
 
     #lost-alert,
     .game-end {

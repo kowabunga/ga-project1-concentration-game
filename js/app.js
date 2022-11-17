@@ -64,7 +64,7 @@ let alertTimeOut;
 /*----- functions -----*/
 function init() {
   currentScore = 0;
-  movesLeft = 3;
+  movesLeft = 20;
   clickedCards = [];
 
   cardBody = document.createDocumentFragment();
