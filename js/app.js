@@ -40,7 +40,7 @@ let currentScore;
 let movesLeft;
 
 let clickedCards;
-let newGame = true;
+let newGame;
 
 let alertTimeOut;
 
