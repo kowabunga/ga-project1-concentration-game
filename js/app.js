@@ -172,8 +172,6 @@ function shuffleCards() {
 }
 
 function onBoardClick(e) {
-  // if(clickedCards[0].getAttribute('card-id'))
-
   // check if target clicked is the icon element OR the div containing the icon element
   // (i.e. has class name of 'card-front')
   // Do a card flip
