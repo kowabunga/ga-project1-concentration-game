@@ -1,24 +1,7 @@
 /*----- constants -----*/
 // This element contains a list of Font Awesome icons class names
 // These will be used as the caterogy to match cards
-let cards = [
-  'fa-solid fa-wand-magic-sparkles',
-  'fa-solid fa-wand-magic-sparkles',
-  'fa-solid fa-palette',
-  'fa-solid fa-palette',
-  'fa-solid fa-splotch',
-  'fa-solid fa-splotch',
-  'fa-solid fa-skull',
-  'fa-solid fa-skull',
-  'fa-solid fa-ghost',
-  'fa-solid fa-ghost',
-  'fa-solid fa-dragon',
-  'fa-solid fa-dragon',
-  'fa-solid fa-hat-wizard',
-  'fa-solid fa-hat-wizard',
-  'fa-solid fa-book-skull',
-  'fa-solid fa-book-skull',
-];
+let cards = [];
 
 const resetCardList = [
   'fa-solid fa-wand-magic-sparkles',
@@ -63,9 +46,11 @@ let alertTimeOut;
 
 /*----- functions -----*/
 function init() {
+  cards = [...resetCardList];
   currentScore = 0;
   movesLeft = 20;
   clickedCards = [];
+  newGame = true;
 
   cardBody = document.createDocumentFragment();
 
@@ -305,9 +290,6 @@ function checkIfGameWon() {
 // Resetting the game board when player gives up
 // Starting a new game once current game is won
 function restartGame() {
-  newGame = true;
-  cards = [...resetCardList];
-
   // remove any "won game" classes
   gameBoardEl.classList.remove('won');
   alertEl.classList.remove('game-won');
